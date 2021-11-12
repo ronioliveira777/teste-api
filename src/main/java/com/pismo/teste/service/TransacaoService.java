@@ -1,5 +1,7 @@
 package com.pismo.teste.service;
 
+import java.security.InvalidParameterException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +16,31 @@ public class TransacaoService {
 
 	@Autowired
 	private TransacaoRepository transacaoRepository;
-	
+
 	@Autowired
 	private ContaRepository contaRepository;
-	
+
 	public Transacao create(TransacaoDto request) throws Exception {
-		
+
+		if (request == null)
+			throw new Exception("Favor informar os dados necessários para uma nova Transação");
+
+		Boolean consultaConta = contaRepository.existsById(request.getConta_id());
+
+		if (!consultaConta) {
+			throw new Exception("Favor informar os dados necessários para uma nova Transação");
+		}
+
 		Conta conta = contaRepository.findById(request.getConta_id()).get();
-			
-        Transacao transacao = new Transacao(request.getQuantia(), request.getTipoOperacao(), request.getDataRegistro(), conta);
-		        
+
+		if (request.getQuantia() <= 0)
+			throw new InvalidParameterException("Informe um valor maior do que zero");
+
+		Transacao transacao = new Transacao(request.getQuantia(), request.getTipoOperacao(), request.getDataRegistro(),
+				conta);
+
 		return transacaoRepository.save(transacao);
 
 	}
-	
+
 }
