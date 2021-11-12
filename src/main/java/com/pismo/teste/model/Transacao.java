@@ -1,10 +1,7 @@
 package com.pismo.teste.model;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Objects;
-import java.util.spi.CalendarNameProvider;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
