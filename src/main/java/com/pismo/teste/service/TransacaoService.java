@@ -1,7 +1,5 @@
 package com.pismo.teste.service;
 
-import java.security.InvalidParameterException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +31,33 @@ public class TransacaoService {
 
 		Conta conta = contaRepository.findById(request.getConta_id()).get();
 
-		if (request.getQuantia() <= 0)
-			throw new InvalidParameterException("Informe um valor maior do que zero");
+		if (request.getTipoOperacao() == 1) {
 
-		Transacao transacao = new Transacao(request.getQuantia(), request.getTipoOperacao(), request.getDataRegistro(),
-				conta);
+			Transacao transacao = new Transacao(-request.getQuantia(), request.getTipoOperacao(),
+					request.getDataRegistro(), conta);
 
-		return transacaoRepository.save(transacao);
+			return transacaoRepository.save(transacao);
+
+		} else if (request.getTipoOperacao() == 2) {
+			Transacao transacao = new Transacao(-request.getQuantia(), request.getTipoOperacao(),
+					request.getDataRegistro(), conta);
+
+			return transacaoRepository.save(transacao);
+
+		} else if (request.getTipoOperacao() == 3) {
+			Transacao transacao = new Transacao(-request.getQuantia(), request.getTipoOperacao(),
+					request.getDataRegistro(), conta);
+
+			return transacaoRepository.save(transacao);
+
+		} else if (request.getQuantia() >= 0 && request.getTipoOperacao() == 4) {
+
+			Transacao transacao = new Transacao(request.getQuantia(), request.getTipoOperacao(),
+					request.getDataRegistro(), conta);
+
+			return transacaoRepository.save(transacao);
+		} else
+			throw new Exception("O valor ou tipo de operação informado não é válido!");
 
 	}
 

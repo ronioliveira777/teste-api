@@ -2,7 +2,7 @@ package com.pismo.teste.domain.enums;
 
 public enum TipoTransacao {
 
-	COMPRAVISTA(1, "Compra a vista"), COMPRAPARC(2, "Compra Parcelada"), SAQUE(3, "Saque"), PAGAMENTO(4, "Pagamento");
+	COMPRAVISTA(1, "Compra a vista"), COMPRAPARCELADA(2, "Compra Parcelada"), SAQUE(3, "Saque"), PAGAMENTO(4, "Pagamento");
 
 	private int cod;
 	private String descricao;
